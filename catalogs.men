@@ -1,0 +1,142 @@
+                        ASTROMETRIC AND POSITIONAL DATA
+
+acrs     Astrographic Catalog Reference Stars
+agk3     AGK3 Catalogue
+fk4      Fourth Fundamental Catalogue and Supplement
+fk5      Fifth Fundamental Catalogue
+gc       General Catalogue of 33342 Stars for the Epoch 1950
+irs      International Reference Stars
+nltt     New Luyten Catalogue of Stars with Proper Motions > 0.2 Arcsecond
+parallax General Catalogue of Trigonometric Stellar Parallaxes, Prelim. Version
+perth70  Perth 70, Positions of 24900 Stars
+perth75  Perth 75, A Catalogue of Positions of 2589 FK4 and FK4S Stars
+pm       Lowell Proper Motion Survey, Northern Hemisphere
+ppm      Catalogue of Positions and Proper Motions, Northern Part
+ppm      Catalogue of Positions and Proper Motions, Southern Part
+saoj2000 Smithsonian Astrophysical Observatory Star Catalog
+wds      Washington Catalog of Visual Double Stars 1984.0
+yalezone Yale Zone Catalogues - Integrated Version
+
+                           COMBINED AND DERIVED DATA
+
+binorbit Fourth Catalog of Orbits of Visual Binary Stars
+bsc4     The Bright Star Catalogue, 4th Revised Edition
+bsc4s    A Supplement to the Bright Star Catalogue
+bsc5     The Bright Star Catalogue, 5th Revised Edition, Preliminary Version
+nearbyst Catalogue of Nearby Stars, 3rd Edition
+spbin    Eighth Catalogue of Orbital Elements of Spectroscopic Binary Systems
+star25pc Catalogue of Stars within 25 Parsecs of the Sun
+
+                             CROSS IDENTIFICATIONS
+
+openclus Catalogue of HD, HDE and DM Identifications for Stars in Open Clusters
+saohddm  SAO/J2000/HD/DM/GC Cross Index
+wdsdmhd  WDS/DM/HD/ADS Cross Index
+
+                              MISCELLANEOUS DATA
+
+constell Catalogue of Constellation Boundary Data
+findlist A Finding List for Observers of Interacting Binary Systems, 5th ed.
+interfer Second Catalog of Interferometric Measurements of Binary Stars
+lineids  Identification List of Lines in Stellar Spectra
+poss     Palomar Observatory Sky Survey Catalogue of Plates
+
+              NONSTELLAR AND EXTENDED OBJECTS: Active Galaxies
+
+qsoagn   A Catalogue of Quasars and Active Galactic Nuclei (4th Edition)
+seyfert  Seyfert Galaxies
+
+              NONSTELLAR AND EXTENDED OBJECTS: Asteroids
+
+asteroid Asteroids II Machine-Readable Data Base - Version March 1988
+
+          NONSTELLAR AND EXTENDED OBJECTS: Star Clusters and Associations
+
+selected Catalogue of Star Clusters and Associations
+
+        NONSTELLAR AND EXTENDED OBJECTS: Galaxies and Clusters of Galaxies
+
+abzwclus Catalogue of Abell and Zwicky Clusters of Galaxies
+cgcg     Catalogue of Galaxies and of Clusters of Galaxies, I-VI
+esoupp   The ESO/Uppsala Survey of the ESO(B) Atlas
+irasgal  Cataloged Galaxies and Quasars Observed in the IRAS Survey, Version 2
+irassss  IRAS Small Scale Structure Catalog
+mcg      Morphological Catalog of Galaxies
+mcg5     Compilation of the Fifth Volume of Morphological Catalogue of Galaxies
+mercg    Merged Catalogue of Galaxies
+mkn      Catalogue of Markarian Galaxies
+ngc2000  NGC 2000.0, The Complete New General Catalogue and Index Catalogue of
+         Nebulae and Star Clusters by J.L.E. Dreyer
+rc2      Second Reference Catalogue of Bright Galaxies
+redshift CfA Redshift Catalogue
+richclus A Catalogue of Rich Clusters of Galaxies
+rngc     Revised New General Catalogue of Nonstellar Astronomical Objects
+shapames A Revised Shapley-Ames Catalog of Bright Galaxies
+ugc      Uppsala General Catalogue of Galaxies
+
+          NONSTELLAR AND EXTENDED OBJECTS: Nebulae and Supernova Remnants
+
+hii      A Catalogue of H II Regions
+lbn      Catalogue of Bright Nebulae
+ldn      Catalogue of Dark Nebulae
+pln      Strasbourg Catalog of Galactic Planetary Nebulae
+reflect  Catalogue of Reflection Nebulae
+snr      A Revised Reference Catalogue of Galactic Supernova Remnants
+
+              NONSTELLAR AND EXTENDED OBJECTS: Radio Sources
+
+4c       The Fourth Cambridge Survey of Radio Sources
+extragal A Catalogue of Extragalactic Radio Source Identifications
+
+              NONSTELLAR AND EXTENDED OBJECTS: X-Ray Sources
+
+2a       Second Ariel X-Ray Catalogue
+3a       The Ariel Catalogue of X-Ray Sources
+4u       Fourth UHURU X-Ray Catalogue
+
+                               PHOTOMETRIC DATA
+
+11color  UBVRIJKLMNH Photoelectric Photometric Catalogue
+13color  13-Color Photometry of 1380 Bright Stars
+ans      ANS Ultraviolet Photometry Catalogue of Point Sources
+cio      Catalog of Infrared Observations
+do       Dearborn Observatory Catalogue of Faint Red Stars
+gcvs     General Catalogue of Variable Stars, 4th Edition
+geneva   Stars Measured in the Geneva Photometric System, 4th Edition
+gspc     The Hubble Space Telescope Guide Star Photometric Catalog
+irasfsc  IRAS Faint Source Catalog, |b| > 10 deg, Version 2.0
+iraspsc  IRAS Catalog of Point Sources, Version 2.0
+irasssc  IRAS Serendipitous Survey Catalog
+landolt  UBVRI Photometric Standard Stars Around the Celestial Equator
+lanz     Photoelectric Photometric Catalogue in the Johnson UBVRI System
+nearby   Photometric Data for the Nearby Stars
+nsv      New Catalogue of Suspected Variable Stars
+rafgl    Revised AFGL Infrared Sky Survey Catalog and Supplement
+s201     Revised S201 Catalog of Far-Ultraviolet Objects
+td1      Catalogue of Stellar Ultraviolet Fluxes, Sky Survey Telescope (S2/68)
+         Aboard the ESRO satellite TD-1
+tmss     Two-Micron Sky Survey
+ubv      UBV Photoelectric Photometry Catalogue
+ubvmeas  Catalogue of Homogeneous Measurements in the UBV System
+ubvopen  Catalogue of UBV Photometry and MK Spectral Types in Open Clusters
+uvbybeta uvby,beta Photoelectric Photometric Catalog
+
+                              SPECTROSCOPIC DATA
+
+bestars  Catalog of Be Stars
+carbon   A General Catalog of Cool Galactic Carbon Stars, 2nd Edition
+emline   Catalogue of Early-Type Stars Whose Spectra Have Shown Emission Lines
+feh      A Catalogue of [Fe/H] Determinations, 1984 Edition
+hd       Henry Draper Catalogue and Extension 1
+lsnorth  Luminous Stars in the Northern Milky Way
+mhd      Michigan Catalogue of 2-D Spectral Types for the HD Stars, Vol. 1
+mhd      Michigan Catalogue of 2-D Spectral Types for the HD Stars, Vol. 2
+mhd      Michigan Catalogue of 2-D Spectral Types for the HD Stars, Vol. 3
+mhd      Michigan Catalogue of 2-D Spectral Types for the HD Stars, Vol. 4
+mkclass  Catalogue of Stellar Spectra Classified in the Morgan-Keenan System
+mkext    MK Classification Extension
+radvel   General Catalogue of Stellar Radial Velocities
+rotvel   Revised Catalogue of Stellar Rotational Velocities
+sstars   General Catalogue of S Stars
+uvbs     Ultraviolet Bright Star Spectrophotometric Catalogue
+wdwarf   A Catalog of Spectroscopically Identified White Dwarfs, 3rd Edition

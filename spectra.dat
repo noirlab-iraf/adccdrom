@@ -1,0 +1,135 @@
+uvbs     Ultraviolet Bright Star Spectrophotometric Catalogue
+	spectro/uvbs/uvbs.dat	 	# Data file
+	1356				# Number of spectra
+	1				# Number of records per spectrum
+	661				# Number of characters per record
+	0				# Number of header lines per spectrum
+	0				# Number of lines to skip
+	13				# Number of characters to skip
+	63				# Number of pixels per line
+	flux				# Types of values per pixel
+	60				# Number of pixels per spectrum
+	6				# Number of characters per pixel
+	INDEF				# Number of characters in the title
+	value				# Pixels encoded as value
+	1360				# Starting wavelength
+	20				# Wavelength per pixel
+
+uvbssupp Supplement to the Ultraviolet Bright Star Spectrophotometric Catalogue
+	spectro/uvbssupp/uvbssupp.dat 	# Data file
+	435				# Number of spectra
+	1				# Number of records per spectrum
+	2146				# Number of characters per record
+	0				# Number of header lines per spectrum
+	0				# Number of lines to skip
+	551				# Number of characters to skip
+	63				# Number of pixels per line
+	flux				# Types of values per pixel
+	132				# Number of pixels per spectrum
+	9				# Number of characters per pixel
+	INDEF				# Number of characters in the title
+	value				# Pixels encoded as value
+	INDEF				# Starting wavelength
+	10				# Wavelength per pixel
+
+spstd	 Spectrophotometric Standards
+	spectro/spstd/spstd.dat 	# Data file
+	25				# Number of spectra
+	INDEF				# Number of records per spectrum
+	107				# Number of characters per record
+	1				# Number of header lines per spectrum
+	0				# Number of lines to skip
+	0				# Number of characters to skip
+	15				# Number of pixels per line
+	flux				# Types of values per pixel
+	INDEF				# Number of pixels per spectrum
+	7				# Number of characters per pixel
+	INDEF				# Number of characters in the title
+	value				# Pixels encoded as value
+	INDEF				# Starting wavelength
+	INDEF				# Wavelength per pixel
+
+spatlasb Stellar Spectrophotometric Atlas 3160-5740 A
+	spectro/spatlas/spatlas.dat 	# Data file
+	175				# Number of spectra
+	142				# Number of records per spectrum
+	82				# Number of characters per record
+	2				# Number of header lines per spectrum
+	0				# Number of lines to skip
+	30				# Number of characters to skip
+	8				# Number of pixels per line
+	flux				# Types of values per pixel
+	259				# Number of pixels per spectrum
+	10				# Number of characters per pixel
+	64				# Number of characters in the title
+	value				# Pixels encoded as value
+	3160.				# Starting wavelength
+	10.				# Wavelength per pixel
+
+spatlasr Stellar Spectrophotometric Atlas 5760-10620 A
+	spectro/spatlas/spatlas.dat 	# Data file
+	175				# Number of spectra
+	142				# Number of records per spectrum
+	82				# Number of characters per record
+	2				# Number of header lines per spectrum
+	32				# Number of lines to skip
+	60				# Number of characters to skip
+	8				# Number of pixels per line
+	flux				# Types of values per pixel
+	244				# Number of pixels per spectrum
+	10				# Number of characters per pixel
+	64				# Number of characters in the title
+	value				# Pixels encoded as value
+	5740.				# Starting wavelength
+	20.				# Wavelength per pixel
+
+splib	 A Library of Stellar Spectra
+	spectro/splib/splib.dat 	# Data file
+	161				# Number of spectra
+	352				# Number of records per spectrum
+	82				# Number of characters per record
+	2				# Number of header lines per spectrum
+	0				# Number of lines to skip
+	0				# Number of characters to skip
+	8				# Number of pixels per line
+	flux				# Types of values per pixel
+	2799				# Number of pixels per spectrum
+	10				# Number of characters per pixel
+	17				# Number of characters in the title
+	value				# Pixels encoded as value
+	3510.				# Starting wavelength
+	1.40				# Wavelength per pixel
+
+iuelda	 IUE Low-Dispersion Spectra Reference Atlas. I. Normal Stars
+	spectro/iuelda/iuelda.dat 	# Data file
+	229				# Number spectra
+	206				# Number of records per spectrum
+	102				# Number of characters per record
+	1				# Number of header lines per spectrum
+	0				# Number of lines to skip
+	0				# Number of characters to skip
+	5				# Number of pixels per line
+	wavelength flux			# Types of values per pixel
+	1025				# Number of pixels per spectrum
+	10				# Number of characters per pixel
+	19				# Number of characters in the title
+	manexp				# Pixels encoded as mantissa/exponent
+	1153.				# Starting wavelength
+	2.00				# Wavelength per pixel
+
+iueostar IUE Atlas of O-Type Stellar Spectra from 1200 to 1900 Angstroms
+	spectro/iueostar/iueostar.dat 	# Data file
+	101				# Number spectra
+	801				# Number of records per spectrum
+	98				# Number of characters per record
+	1				# Number of header lines per spectrum
+	0				# Number of lines to skip
+	0				# Number of characters to skip
+	4				# Number of pixels per line
+	flux quality			# Types of values per pixel
+	3200				# Number of pixels per spectrum
+	12				# Number of characters per pixel
+	44				# Number of characters in the title
+	value				# Pixels encoded as value
+	1150.				# Starting wavelength
+	0.25				# Wavelength per pixel

@@ -1,0 +1,10 @@
+# Help directory for the ADCCDROM package
+
+$defdir		= "adccdrom$"
+$doc		= "adccdrom$doc/"
+$src		= "adccdrom$src/"
+
+catalog		hlp=doc$catalog.hlp,		src=src$t_tbldb.x
+spectra		hlp=doc$spectra.hlp,		src=src$t_spectra.x
+
+revisions       sys=Revisions

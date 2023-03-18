@@ -1,0 +1,152 @@
+Bug 8/02/95:
+	The t_tbldb task, which is a lower level task for directly accessing
+	tables, was not working because of a missing parameter definition
+	and a typo in the code.
+Bug 3/31/93:
+	When a catalog field is longer than 79 characters a fixed length
+	string can be overflowed causing a segmentation violation.  There
+	is no workaround other than to avoid such fields.  The fix is
+	to truncated such strings at 79 characters.
+
+========================================================================
+Archive 3/4/93:   Fixes bug in evsptype function.
+========================================================================
+
+========================================================================
+Archive 9/4/92:   Allows arbitrary length expressions in a file.
+		  Uses double precision to avoid truncating catalog
+		  data which exceeds the precision of a real.
+========================================================================
+
+========================================================================
+Archive 8/21/92:  Allows systems that mount the CD with upper case names
+		  Those with lower case names need not update
+========================================================================
+
+===================================================================
+Archive 7/15:  Fixes problem with a few catalogs using the D format.
+===================================================================
+
+===========================
+Archive 6/25: First release
+===========================
+
+
+       Installation Instructions for the ADCCDROM Package
+
+The IRAF ADC CD-ROM utility package, ADCCDROM, is distributed separately
+from the IRAF distribution.  To be useful Volume 1 of ADC CD-ROM must be
+available and mounted somewhere in the IRAF network as a directory tree.
+Also it is the text version of the catalogs which must be mounted and not
+the FITS table version.  The software will attempt to access the files as
+either upper or lower case names but if the driver provides a version number
+(i.e. DECstation) it should be mounted with the "noversion" option.
+
+The installation instructions that follow assume that you have copied the
+tar format ADCCDROM archive onto your host machine.  The method you use to
+copy the file (or remotely access the tar file) is OS dependent and is not
+discussed in this document.
+If you have any questions, please contact the IRAF group at
+iraf$noao.edu,  NOAO::IRAF (5355::IRAF) or call the IRAF HOTLINE at
+602-323-4160.
+
+[1] The package is distributed as a tar archive; IRAF is distributed
+    with a tar reader.  The tar archive may be obtained by magnetic
+    tape or anonymous ftp.  For magnetic tape go to step [2] and when
+    reading the tar archive simply mount the tape and use the tape
+    device name for the archive name in step [4].  To obtain the package
+    via ftp (assuming a UNIX computer):
+
+	% ftp 192.31.165.1
+	login: anonymous
+	password: [your email address]
+	ftp> cd iraf.old
+	ftp> get readme.adccdrom
+	ftp> binary
+	ftp> get adccdrom.tar.Z
+	ftp> quit
+	% uncompress adccdrom.tar
+
+    The readme.adccdrom file contains these instructions.  Special arrangements 
+    can be made for sites that don't have access to internet but could copy 
+    the uncompressed archive over SPAN.
+
+[2] Create a directory to contain the ADCCDROM external package files.  This
+    directory should be outside the IRAF directory tree and must be owned
+    by the IRAF account.  In the following examples, this root directory is
+    named usr1:[adccdrom] (VMS) or  /local/adccdrom/ (UNIX).  Make the
+    appropriate file name substitutions for your site.
+
+[3] Log in as IRAF and edit the extern.pkg file in the hlib$ directory to
+    define the package to the CL.  From the IRAF account, outside the CL,
+    you can move to this directory with the commands:
+
+	$ set def irafhlib	# VMS example
+	% cd $hlib		# UNIX example
+
+    Define the environment variable adccdrom to be the pathname to the
+    adccdrom root directory and adccddir to be the pathname to the root
+    of the ADC CD-ROM data directory (usually the CD-ROM reader mount
+    name).  The '$' character must be escaped in the VMS
+    pathname; UNIX pathnames must be terminated with a '/'.  Edit
+    extern.pkg to include:
+
+	reset adccdrom	= usr\$1:[adccdrom]   	# VMS example
+	reset adccdrom  = /local/adccdrom/	# UNIX example
+
+	reset adccddir	= orion!/cdrom2/	# Example with IRAF host name
+
+	task  $adccdrom.pkg = adccdrom$adccdrom.cl
+
+    Note that the directory path for the CD-ROM reader may include an IRAF
+    host name to allow access from any machine on the IRAF network.
+
+    Near the end of the hlib$extern.pkg file, update the definition of helpdb
+    so it includes the adccdrom help database, copying the syntax already used
+    in the string.  Add this line before the line containing a closing quote:
+        
+                ,adccdrom$lib/helpdb.mip\
+
+    NOTE: In IRAF V2.8 the length of the helpdb string cannot exceede 160 
+    characters.  A helpdb string longer than 160 characters will cause the
+    CL startup process to fail.
+
+[4] Log into the CL from the IRAF account and unpack the archive file.  Change
+    directories to the ADCCDROM root directory created above and use 'rtar':
+
+	cl> cd adccdrom
+	cl> softools
+	cl> rtar -xrf <archive>  where <archive> is the host name of the
+				 archive file or the IRAF tape
+				 device for tape distributions.
+
+   On VMS systems, an error message will appear ("Copy 'bin.generic' to
+   './bin fails") which can be ignored.  Also on VMS systems, the four
+   bin.'mach' directories created by rtar under [adccdrom.bin] can be
+   deleted.  UNIX sites should leave the symbolic link 'bin' in the ADCCROM
+   root directory pointing to 'bin.generic' but can delete any of the 
+   bin.`mach' directories that won't be used.  The archive file can be
+   deleted once the package has been successfully installed.
+
+[5] When the archive has been unpacked, build the ADCCDROM package executable.  
+    The compilation and linking of the ADCCDROM package is done using the
+    following command:
+
+	cl> mkpkg -p adccdrom update >& adccdrom.spool &
+
+    NOTE: On systems that concurrently support different architectures
+    (e.g., Suns, Convex), you must configure the system for the desired
+    architecture before issuing the above command.  SUN/IRAF sites must
+    execute a pair of 'mkpkg' commands for each supported architecture type.
+    The Unix environment variable IRAFARCH must be set as well before
+    compiling.  For example:
+
+	# Assuming IRAFARCH is set to ffpa
+	cl> mkpkg -p adccdrom ffpa
+	cl> mkpkg -p adccdrom update >& adccdrom.ffpa &
+	cl> mkpkg -p adccdrom f68881
+	# Now reset IRAFARCH to f68881 before continuing
+	cl> mkpkg -p adccdrom update >& adccdrom.f68881 &
+
+    The spool file(s) should be reviewed upon completion to make sure there
+    were no errors.  

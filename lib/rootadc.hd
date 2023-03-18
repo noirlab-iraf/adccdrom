@@ -1,0 +1,7 @@
+# Root task entry for the ADCCDROM package help tree.
+
+adccdrom	men  = adccdrom$adccdrom.men,
+		hlp  = adccdrom$adccdrom.men,
+		sys  = adccdrom$adccdrom.hlp,
+		pkg  = adccdrom$adccdrom.hd,
+		src  = adccdrom$adccdrom.cl

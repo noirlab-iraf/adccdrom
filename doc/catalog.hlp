@@ -1,0 +1,481 @@
+.help catalog Jun92 adccdrom
+.ih
+NAME
+catalog - extract entries and fields from ADC CD-ROM catalogs
+.ih
+USAGE
+catalog catalog subcatalog fields expression
+.ih
+PARAMETERS
+.ls catalog
+Catalog name from which to extract entries and fields.  To obtain a list
+of the catalog names enter '?'.
+.le
+.ls subcatalog
+Subcatalog name when there are multiple subcatalogs in a catalog.  To obtain
+a list of the subcatalog names enter '?'.
+.le
+.ls fields
+List of comma separated fields to output.  To obtain a list of the field
+names available in the selected catalog enter '?'.
+.le
+.ls expression
+Selection expression based on catalog fields.  To obtain a list of the field
+names available in the selected catalog enter '?'.  The expression syntax
+is given in the DESCRIPTION section.  The expression must evaluate to
+a boolean value.  A file containing the expression may be specified
+by using @<file>.
+.le
+.ls macros = ""
+User macro definition file.  This file contains additional fields
+defined in terms of expressions using constants and catalog fields.  These
+macro fields may then be used in the \fIfield\fR and \fIexpression\fR
+parameters as if they were catalog fields.  The fields will also appear
+in the listing of the catalog fields.  The macro definition file format
+is given in the DESCRIPTION section.
+.le
+.ls output = "STDOUT"
+Output file for the selected entries and fields.  The default "STDOUT"
+selects the standard output which is usually the terminal but may also
+be piped to another task or redirected to a file.
+.le
+.ih
+DESCRIPTION
+This task provides a convenient user interface to Volume 1 of the
+Astronomical Data Center CD-ROM collection of astronomical catalogs.  The
+text version of the catalogs (as opposed to the FITS tables version) is
+used and must be mounted and appear as a normal directory.  The directory
+path is defined by the environment variable "adccddir" which should be set
+when the \fBadccdrom\fR package is installed.  Note that this path may
+include an IRAF node name which then allows access to any machine available
+on the IRAF network.
+
+The catalog to be accessed is specified by a simple catalog name.  One goal
+of this task is that users need not know the CD-ROM directory structure or
+the full file names.  A list of catalogs, organized by type of data, may be
+paged by specifying '?' for the catalog name.  If '?' is given on the
+command line the task exits after paging the list and if the catalog name
+is queried one may then enter one of the catalog names.  The list of
+catalogs is also included below.  Note that this task only accesses table
+catalogs.  In addition to tables the CD-ROM also contains documentation and
+not table data such as spectra.  Some of the spectral data may be accessed
+with the task \fBspectra\fR.
+
+Some catalogs consist of more than one table data file, which we call
+subcatalogs.  If this is the case for the selected catalog, the subcatalog
+name must also be specified.  A list of the subcatalogs, by file name only,
+is given if the subcatalog name is specified as '?'.  If given on the
+command line the task will exit otherwise the query is repeated to allow
+selecting one of the names from the list.
+
+The purpose of this task is to allow selecting and printing a subset of the
+data in the designated catalog.  The catalogs are tables having a number of
+entries with each entry having the same set of columns or fields.  Thus,
+one may select entries based on some function of the fields and then select
+which fields to be output.  The \fIfields\fR parameter selects the fields
+to be printed.  Since one doesn't initially know what fields are contained
+in a particular catalog a list of the available fields may be paged by
+entering '?'.  If the parameter is specified on the command line then the
+task exits after listing the fields.  Otherwise the query is repeated to
+allow entering the fields.  The fields are entered as comma separated
+names.
+
+To select entries a boolean selection expression is specified.
+The expression consists of various operators applied to the catalog
+fields.  Hence the field names must also be known here and a '?' value
+for the expression parameter will provide a list of fields.  The
+expression syntax is similar to that used in \fBhedit\fR and \fBhselect\fR
+and is described further below.  A typical expression consists of a set
+of equality or inequality tests on various fields combined together by
+logical ands and ors.  The expression may be taken from a file by
+using specifying @<file> where file is the filename containing the
+expression.
+
+The output of this task is a readable text table of the field values
+for the selected entries.  This table may be printed to the terminal,
+piped to another task, redirected to a file, or explicitly directed
+to a file.  The \fIoutput\fR parameter is either the name of the
+file to which the output is appended or the special file name "STDOUT"
+which refers to the standard output.  The standard output is the
+terminal unless redirected on the command line to a pipe or file.
+
+If the output is other than the terminal, that is if an output file
+is specified or the standard output is redirected, a status is
+written to the standard error output.  This status output is printed after
+every 1000 catalog entries are read and shows the number of entries
+selected, the number of entries read, and the total number of entries
+in the catalog.
+
+Expressions on fields are not allowed in the \fIfields\fR parameter.
+However, it is possible to define special macro fields which are
+expressions and then refer to these expressions by name in both the
+\fIfields\fR and \fIexpression\fR parameters.  Two such macros, "ra" and
+"dec", are automatically defined if the catalog contains fields specifying
+the right ascension hours (RAH), minutes (RAM), and seconds (RAS) and the
+declination degrees (DecSign and DecD), minutes (DecM), seconds (DecS)
+separately.  The macros combine these fields into a single numeric
+field which may be used for selection and printing in sexagesimal notation.
+
+Additional macros are defined in a file consisting of lines with a macro
+name, an SPP style printing format (see \fBlistpix\fR), and an expression.
+The expression must be a single word and so must be quoted if there are any
+blanks.  For example to define a macro which is the sum of the fields EX1
+and EX2:
+
+.nf
+	exsum	%10g	"EX1 + EX2"
+.fi
+
+where the output format has a width of 10 characters and may be in either
+fixed or exponential floating format depending on the magnitude of the
+value.  Function expressions can be of any data type as compared to selection
+expression which must evaluate to a logical boolean value.  The defined
+macros appear in the listing of the available fields for the catalog.
+
+SELECTION AND MACRO EXPRESSIONS
+
+The selection expression parameter and macro definitions are strings (which
+must be quoted if there are any blanks) specifying an algebraic expression
+to be evaluated for each entry in the catalog.  The operands may be
+constants, field names, macro names, or functions.  The operators are
+arithmetic, logical, and string operators.  The expression syntax is
+equivalent to that used in the CL and SPP languages.
+
+operators:
+
+The following operators are recognized in expressions.  With the exception
+of the operators "?", "?=", and "@", the operator set is equivalent to that
+available in the CL and SPP languages.
+
+
+.nf
+	+  -  *  /		arithmetic operators
+	**			exponentiation
+	//			string concatenation
+	!  -			boolean not, unary negation
+	<  <= >  >=		order comparison (works for strings)
+	== != && ||		equals, not equals, and, or
+	?=			string equals pattern
+	? :			conditional expression
+	@			reference a variable
+.fi
+
+
+The operators "==", "&&", and "||" may be abbreviated as "=", "&", and "|"
+if desired.  The ?= operator performs pattern matching upon strings.
+For example, the boolean expression shown below will be true whenever the
+field "Name" contains the substring "nebula".
+
+	Name ?= '*nebula*'
+
+The ? and @ operators are not likely to be used in catalog selections
+and so are not described here.  See \fBhedit\fR for more on these
+operators.
+
+An expression may contain operands of datatypes bool, int, real, and string.
+Mixed mode expressions are permitted with automatic type coercion.  Most type
+coercions from boolean or string to other datatypes are illegal.  The boolean
+constants "yes" and "no" are predefined and may be used within expressions.
+
+intrinsic functions:
+
+A number of standard intrinsic functions are recognized within expressions.
+The set of functions currently supported is shown below.
+
+
+.nf
+	abs	acos	asin	atan	atan2	bool	cos
+	exp	int	log	log10	max	min	mod
+	nint	real	sin	sqrt	str	tan	
+.fi
+
+
+The trigonometric functions operate in units of degrees rather than radians.
+The \fImin\fR and \fImax\fR functions may have any number of arguments up
+to a maximum of sixteen or so (configurable).  The arguments need not all
+be of the same datatype.
+
+A function call may take either of the following forms:
+
+.nf
+	<identifier> '(' arglist ')'
+or
+	<string_expr> '(' arglist ')'
+.fi
+
+The first form is the conventional form found in all programming languages.
+The second permits the generation of function names by string valued
+expressions and might be useful on rare occasions.
+
+special functions:
+
+In addition to the above intrinsic functions there are two general ones
+and three astronomical ones available in this task.  The general functions
+are \fIctoi\fR and \fIctor\fR which convert numbers stored as strings
+to integer and real numbers respectively.
+
+The three astronomical functions currently defined are:
+
+.nf
+     evra - right ascension from separate hour, minute, seconds
+    evdec - declination from separate sign, degree, minute, seconds
+ evsptype - is spectral type in range
+.fi
+
+The right ascension function takes two or three arguments which are
+the hours, minutes, and seconds and computes a decimal right ascension.
+The seconds field may be left out and then the minutes field may be
+fractional.  The declination function takes three or four arguments
+which are the sign ('+' or '-'), the degrees, minutes and seconds and
+computes the decimal declination.  The seconds field is optional.
+
+For example:
+
+.nf
+	evra (11, 22, 10.1) = 11.369472222328 (11:22:10.1) 
+	evdec ("-", 35, 12.2) = -35.2033333333 (-35:12.2)
+.fi
+
+The spectral type function has two or three string arguments.
+The function returns true if the first argument in within
+the spectral type range specified by the second and third arguments.
+If the third argument is missing then it defaults to the second argument
+which effectively means the spectral type must match the second argument.
+Only the first two characters of the spectral type
+strings are considered and the case is ignored.  The first character
+is assumed to be ordered as OBAFGKM and the second character is
+0-9.  A space or end of string for the second character matches all
+subclasses.  Any other characters cause the function to return false.
+
+Some examples follow.  The function evsptype (SpType, "A3", "F5") will
+be true when the field SpType is (in order):
+
+.nf
+	A, F, A3, A4, A5, A6, A7, A8, A9, F, F1, F2, F3, F4, F5
+.fi
+
+The function evsptype (SpType, "M") will match all spectral types beginning
+with M.  Note that the negation operator can be use to select classes
+outside of a range as in !evsptype (SpType, "O", "M") will be true for
+any spectral type except O-M.
+
+
+.ce
+Available ADC CD-ROM Catalogs
+
+.nf
+                        ASTROMETRIC AND POSITIONAL DATA
+
+acrs     Astrographic Catalog Reference Stars
+agk3     AGK3 Catalogue
+fk4      Fourth Fundamental Catalogue and Supplement
+fk5      Fifth Fundamental Catalogue
+gc       General Catalogue of 33342 Stars for the Epoch 1950
+irs      International Reference Stars
+nltt     New Luyten Cat. of Stars with Proper Motions > 0.2 Arcsec
+parallax General Catalogue of Trig. Stellar Parallaxes, Prelim. Ver.
+perth70  Perth 70, Positions of 24900 Stars
+perth75  Perth 75, Catalogue of Positions of 2589 FK4 and FK4S Stars
+pm       Lowell Proper Motion Survey, Northern Hemisphere
+ppm      Catalogue of Positions and Proper Motions, Northern Part
+ppm      Catalogue of Positions and Proper Motions, Southern Part
+saoj2000 Smithsonian Astrophysical Observatory Star Catalog
+wds      Washington Catalog of Visual Double Stars 1984.0
+yalezone Yale Zone Catalogues - Integrated Version
+
+                           COMBINED AND DERIVED DATA
+
+binorbit Fourth Catalog of Orbits of Visual Binary Stars
+bsc4     The Bright Star Catalogue, 4th Revised Edition
+bsc4s    A Supplement to the Bright Star Catalogue
+bsc5     Bright Star Catalogue, 5th Revised Edition, Prelim. Version
+nearbyst Catalogue of Nearby Stars, 3rd Edition
+spbin    8th Cat. of Orbital Elements, Spectroscopic Binary Systems
+star25pc Catalogue of Stars within 25 Parsecs of the Sun
+
+                             CROSS IDENTIFICATIONS
+
+openclus Cat. of HD, HDE and DM Ids for Stars in Open Clusters
+saohddm  SAO/J2000/HD/DM/GC Cross Index
+wdsdmhd  WDS/DM/HD/ADS Cross Index
+
+                              MISCELLANEOUS DATA
+
+constell Catalogue of Constellation Boundary Data
+findlist Finding List of Interacting Binary Systems, 5th ed.
+interfer 2nd Catalog of Interferometric Measurements of Binary Stars
+lineids  Identification List of Lines in Stellar Spectra
+poss     Palomar Observatory Sky Survey Catalogue of Plates
+
+              NONSTELLAR AND EXTENDED OBJECTS: Active Galaxies
+
+qsoagn   Catalogue of Quasars and Active Galactic Nuclei (4th Ed.)
+seyfert  Seyfert Galaxies
+
+              NONSTELLAR AND EXTENDED OBJECTS: Asteroids
+
+asteroid Asteroids II Machine-Readable Data Base - Ver. March 1988
+
+    NONSTELLAR AND EXTENDED OBJECTS: Star Clusters and Associations
+
+selected Catalogue of Star Clusters and Associations
+
+  NONSTELLAR AND EXTENDED OBJECTS: Galaxies and Clusters of Galaxies
+
+abzwclus Catalogue of Abell and Zwicky Clusters of Galaxies
+cgcg     Catalogue of Galaxies and of Clusters of Galaxies, I-VI
+esoupp   The ESO/Uppsala Survey of the ESO(B) Atlas
+irasgal  Cat. Galaxies and Quasars in the IRAS Survey, Version 2
+irassss  IRAS Small Scale Structure Catalog
+mcg      Morphological Catalog of Galaxies
+mcg5     Compilation of the 5th Vol of Morphological Cat of Galaxies
+mercg    Merged Catalogue of Galaxies
+mkn      Catalogue of Markarian Galaxies
+ngc2000  NGC 2000.0, Dreyer New General Catalogue
+rc2      Second Reference Catalogue of Bright Galaxies
+redshift CfA Redshift Catalogue
+richclus A Catalogue of Rich Clusters of Galaxies
+rngc     Revised New General Catalogue of Nonstellar Astron. Objects
+shapames A Revised Shapley-Ames Catalog of Bright Galaxies
+ugc      Uppsala General Catalogue of Galaxies
+
+     NONSTELLAR AND EXTENDED OBJECTS: Nebulae and Supernova Remnants
+
+hii      A Catalogue of H II Regions
+lbn      Catalogue of Bright Nebulae
+ldn      Catalogue of Dark Nebulae
+pln      Strasbourg Catalog of Galactic Planetary Nebulae
+reflect  Catalogue of Reflection Nebulae
+snr      Revised Reference Catalogue of Galactic Supernova Remnants
+
+              NONSTELLAR AND EXTENDED OBJECTS: Radio Sources
+
+4c       The Fourth Cambridge Survey of Radio Sources
+extragal A Catalogue of Extragalactic Radio Source Identifications
+
+              NONSTELLAR AND EXTENDED OBJECTS: X-Ray Sources
+
+2a       Second Ariel X-Ray Catalogue
+3a       The Ariel Catalogue of X-Ray Sources
+4u       Fourth UHURU X-Ray Catalogue
+
+                               PHOTOMETRIC DATA
+
+11color  UBVRIJKLMNH Photoelectric Photometric Catalogue
+13color  13-Color Photometry of 1380 Bright Stars
+ans      ANS Ultraviolet Photometry Catalogue of Point Sources
+cio      Catalog of Infrared Observations
+do       Dearborn Observatory Catalogue of Faint Red Stars
+gcvs     General Catalogue of Variable Stars, 4th Edition
+geneva   Stars Measured in the Geneva Photometric System, 4th Ed.
+gspc     The Hubble Space Telescope Guide Star Photometric Catalog
+irasfsc  IRAS Faint Source Catalog, |b| > 10 deg, Version 2.0
+iraspsc  IRAS Catalog of Point Sources, Version 2.0
+irasssc  IRAS Serendipitous Survey Catalog
+landolt  UBVRI Photometric Standard Stars Around Celestial Equator
+lanz     Photoelectric Photometric Cat. in the Johnson UBVRI System
+nearby   Photometric Data for the Nearby Stars
+nsv      New Catalogue of Suspected Variable Stars
+rafgl    Revised AFGL Infrared Sky Survey Catalog and Supplement
+s201     Revised S201 Catalog of Far-Ultraviolet Objects
+td1      Catalogue of Stellar Ultraviolet Fluxes, Sky Survey Tel.
+tmss     Two-Micron Sky Survey
+ubv      UBV Photoelectric Photometry Catalogue
+ubvmeas  Catalogue of Homogeneous Measurements in the UBV System
+ubvopen  UBV Photometry and MK Spectral Types in Open Clusters
+uvbybeta uvby,beta Photoelectric Photometric Catalog
+
+                              SPECTROSCOPIC DATA
+
+bestars  Catalog of Be Stars
+carbon   A General Catalog of Cool Galactic Carbon Stars, 2nd Ed
+emline   Catalogue of Early-Type Stars With Emission Lines
+feh      A Catalogue of [Fe/H] Determinations, 1984 Edition
+hd       Henry Draper Catalogue and Extension 1
+lsnorth  Luminous Stars in the Northern Milky Way
+mhd      Michigan Catalogue of 2-D Spec Types for HD Stars, Vol. 1
+mhd      Michigan Catalogue of 2-D Spec Types for HD Stars, Vol. 2
+mhd      Michigan Catalogue of 2-D Spec Types for HD Stars, Vol. 3
+mhd      Michigan Catalogue of 2-D Spec Types for HD Stars, Vol. 4
+mkclass  Catalogue of Stellar Spectra Classified in the MK System
+mkext    MK Classification Extension
+radvel   General Catalogue of Stellar Radial Velocities
+rotvel   Revised Catalogue of Stellar Rotational Velocities
+sstars   General Catalogue of S Stars
+uvbs     Ultraviolet Bright Star Spectrophotometric Catalogue
+wdwarf   A Catalog of Spectroscopically Identified White Dwarfs
+.fi
+.ih
+EXAMPLES
+1. Use the \fBcatalog\fR task to examine the available catalogs, select
+a catalog, list the fields of the catalog, and extract a subset of entries.
+
+.nf
+    ad> catalog
+    Catalog name (? for list): ?
+    <List of catalogs>
+    Catalog name (? for list): fk4
+    Subcatalog name (? for list): ?
+    Choose one of the following subcatalogs in fk4:
+	    data50
+	    data75
+	    descript
+	    polar55
+	    polar60
+	    polar65
+	    polar70
+	    suppl
+    Subcatalog name (? for list) (?): polar70
+    Fields to print (? for list): ?
+    <List of fields>
+    Fields to print (? for list): FK4,ra,dec,Mag,Sptype
+    Selection expression (? for list):\
+	 dec<-85:30 && Mag<7 && evsptype (SpType, "A")
+    1663  10:32:53.15 -85:56:08.30  6.74 A0
+    1665  13:35:43.58 -85:38:01.92  5.65 A2
+     920  15:11:36.63 -88:01:29.54  6.52 A2
+     921  16:49:23.73 -86:19:03.43  6.13 A0
+    1669  22:31:50.54 -88:58:29.39  6.54 A5
+.fi
+
+2. List directory of catalogs.
+
+.nf
+    ad> catalog ?
+.fi
+
+3.  List the fields in the FK4/POLAR70 catalog and save in a file.
+
+.nf
+    ad> catalog fk4 polar70 ? > fk4.dir
+.fi
+.ih
+BUGS
+The task is slow due to the large about of I/O and string manipulation
+required.  There are also some known inefficiencies in the implementation
+of the selection expressions.
+
+Character constants in the selection expression are allocated memory for
+each entry and never freed.  Thus for large tables the virtual memory
+can grow quite large.  A \fBflpr\fR is recommended after the task completes
+in this case.
+
+Aborting access via IRAF networking can cause subsequent errors (such
+as the task no longer responding).  A \fBflpr\fR will restore the connection.
+Ignore any error message such as:
+
+PANIC in `/ursa/iraf/extern/adccdrom/bin.s': Write to IPC with no reader"
+
+
+The 'null' value cabability of the tables is not used.
+.ih
+SEE ALSO
+.nf
+hedit hselect
+
+The FITS tables version of the catalogs may be read with tables.strfits
+and manipulated with the table tools.
+
+Various documenation on the ADC CD-ROM collection
+.fi
+.endhelp

@@ -1,0 +1,7 @@
+header,f,a,"",,,Catalog header file
+data,f,a,"",,,Catalog data file
+functions,s,h,"",,,"User function definition file"
+fields,s,h,"",,,Fields to print (? for list)
+expression,s,h,"",,,Selection expression
+macros,s,h,"",,,"User macro definition file"
+output,s,h,"STDOUT",,,"Output file"

@@ -1,0 +1,93 @@
+deleting any dreg .e files left lying about in the source directories... done
+archiving and deleting generic objects... restoring archived macintel objects... no object archive found; full sysgen will be needed
+Warning: IRAFARCH is still set in your environment to linux
+warning: library `libpkg.a' not found
+xc -c -w -p adccdrom -p noao -p tables fvexpr.x t_spectra.x t_tbldb.x
+fvexpr.x:
+   fvexpr:
+   xfv_unop:
+   xfv_binop:
+   xfv_boolop:
+   xfv_patmatch:
+   xfv_newtype:
+   xfv_quest:
+   xfv_callfcn:
+   xfv_startarglist:
+   xfv_addarg:
+   xfv_error1:
+   xfv_error2:
+   xfv_error:
+   xfv_gettok:
+   xfv_initop:
+   xfv_makeop:
+   xfv_freeop:
+   yyparse:
+t_spectra.x:
+   t_spectra:
+   ghead:
+   ctorn:
+t_tbldb.x:
+   t_catalog:
+   t_tbldb:
+   tbl_read:
+   tbl_free:
+   tbl_print:
+   tbl_gmacro:
+   tbl_ghdr:
+   tbl_flist:
+   tbl_strip:
+   tbl_gfield:
+   tbl_gval:
+   tbl_gop:
+   tbl_fcn:
+fvexpr.f:
+   fvexpr:
+   xfvunp:
+   xfvbip:
+   xfvbop:
+   xfvpah:
+   xfvnee:
+   xfvqut:
+   xfvcan:
+   xfvstt:
+   xfvadg:
+   xfver1:
+   xfver2:
+   xfverr:
+   xfvgek:
+   xfvinp:
+   xfvmap:
+   xfvfrp:
+   xfvpae:
+t_spectra.f:
+   tspeca:
+   ghead:
+   ctorn:
+t_tbldb.f:
+   tcatag:
+   ttbldb:
+   tblred:
+   tblfre:
+   tblprt:
+   tblgmo:
+   tblghr:
+   tblflt:
+   tblstp:
+   tblgfd:
+   tblgvl:
+   tblgop:
+   tblfcn:
+ar r /u3/iraf/repo-v216.build/active/adccdrom/src/libpkg.a fvexpr.o t_spectra.o t_tbldb.o
+ar: creating /u3/iraf/repo-v216.build/active/adccdrom/src/libpkg.a
+ranlib libpkg.a
+Updated 3 files in libpkg.a
+xc -c -w -p adccdrom -p noao -p tables x_adccdrom.x
+x_adccdrom.x:
+   sys_runtask:
+x_adccdrom.f:
+   sysruk:
+xc -Nz -p noao -p tables x_adccdrom.o libpkg.a -lxtools -o xx_adccdrom.e
+move `xx_adccdrom.e' to `adcbin$x_adccdrom.e'
+deleting any dreg .e files left lying about in the source directories... done
+archiving and deleting macintel objects... done
+compressing bin.macintel/OBJS.arc [1] 7353

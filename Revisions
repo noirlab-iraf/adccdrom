@@ -1,0 +1,85 @@
+.help revisions Jun92 adccdrom
+.nf
+src/mkpkg
+    Added missing <fset.h> dependency (1/22/02, MJF)
+
+tbldb.par
+    The parameter file was missing the "macros" parameters.
+    (8/2/95, Valdes, reported by John Hill)
+
+src/t_tbldb.x
+    The call to tbl_gfield in t_tbldb was using fields instead of field
+    with the result that it could not expand a list of fields.
+    (8/2/95, Valdes, reported by John Hill)
+
+src/t_tbldb.x
+    A field longer than 79 characters would overflow a fixed string length
+    possibly causing a segmentation violation.  Such strings are now
+    truncated.  (3/31/93, Valdes)
+
+========================================================================
+Archive 3/4/93:   Fixes bug in evsptype function.
+========================================================================
+
+src/t_tbldb.x
+    There was a bug in the evsptype function which would cause a
+    segmentation or bus error.  Memi was used instead of Memd with
+    a double pointer.
+    (3/4/93, Valdes)
+
+========================================================================
+Archive 9/4/92:   Allows arbitrary length expressions in a file.
+		  Uses double precision to avoid truncating catalog
+		  data which exceeds the precision of a real.
+========================================================================
+
+src/mkpkg
+src/t_tbldb.x
+src/fvexpr.h +
+src/fvexpr.com +
+src/fvexpr.y +
+src/fvexpr.x +
+    1.  Extended maximum length of expression specified in a file from
+	1024 to any length.
+    2.  Created a copy of the expression evaluator which uses double
+	precision instead of single.  This was important to avoid
+	truncating catalog data which exceeds the precision of a real.
+    (9/4/92, Valdes)
+
+========================================================================
+Archive 8/21/92:  Allows systems that mount the CD with upper case names
+		  Those with lower case names need not update
+========================================================================
+
+src/t_tbldb.x
+src/t_spectra.x
+    1.  The true CD filenames are uppercase but depending on the system and
+        how the CD is mounted the names may appear either as lower or upper
+        case.  The tasks still generate the file names in lower case but
+        then attempt to open the file first in lower case and then in
+        upper case.
+    2.  The variable str in t_spectra was allocated SZ_FNAME but then used
+	as SZ_LINE.  The allocation was changed to SZ_LINE.
+    (8/21/92, Valdes)
+
+src/t_tbldb.x
+    In the procedure t_tbldb there was a missing salloc for the output
+    file name string pointer.  This is harmless because this procedure
+    is not currently available to users.  (8/19/92, Valdes)
+
+===================================================================
+Archive 7/15:  Fixes problem with a few catalog using the D format.
+===================================================================
+
+src/t_tbldb.x
+    Interpretation of the decimal point in the FORTRAN D and E formats was
+    wrong.  (7/15/92, Valdes)
+
+===========================
+Archive 6/25: First release
+===========================
+
+adccdrom$* +
+    Created V1.0 of the ADCCDROM package (6/24/92, Valdes)
+
+.endhelp

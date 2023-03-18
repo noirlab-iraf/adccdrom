@@ -1,0 +1,3 @@
+catalog,s,a,"",,,Spectrum catalog name (? for list)
+spectra,s,a,"",,,List of spectra to extract (? for list)
+image,s,a,"",,,Output spectrum root name

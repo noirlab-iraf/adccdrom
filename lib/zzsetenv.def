@@ -1,0 +1,7 @@
+# Global environment definitions for the ADCCDROM package.
+
+set	adclib		= "adccdrom$lib/"
+set	adcsrc		= "adccdrom$src/"
+set	adcbin		= "adccdrom$bin(arch)/"
+
+keep

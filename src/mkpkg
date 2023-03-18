@@ -1,0 +1,34 @@
+# Make the ADCCDROM package.
+
+$ifnewer (fvexpr.y, fvexpr.x)
+	$ifeq (HOSTID, unix)
+	    $echo "fmtio/fvexpr.x is out of date; rebuilding with XYACC:"
+	    !(xyacc fvexpr.y; mv -f ytab.x fvexpr.x)
+	$else
+	    $echo "fmtio/fvexpr.x is out of date; rebuild with XYACC"
+	$endif
+$endif
+
+$call	relink
+$exit
+
+update:
+	$call	relink
+	$call	install
+	;
+
+relink:
+	$update	libpkg.a
+	$omake	x_adccdrom.x
+	$link	x_adccdrom.o libpkg.a -lxtools -o xx_adccdrom.e
+	;
+
+install:
+	$move	xx_adccdrom.e adcbin$x_adccdrom.e
+	;
+
+libpkg.a:
+	fvexpr.x	fvexpr.com fvexpr.h <ctype.h> <lexnum.h> <mach.h>
+	t_spectra.x	<error.h> <imhdr.h>
+	t_tbldb.x	fvexpr.h <ctotok.h> <ctype.h> <error.h> <fset.h>
+	;

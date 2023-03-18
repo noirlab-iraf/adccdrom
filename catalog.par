@@ -1,0 +1,6 @@
+catalog,s,a,"",,,"Catalog name (? for list)"
+subcatalog,s,a,"",,,"Subcatalog name (? for list)"
+fields,s,a,"",,,"Fields to print (? for list)"
+expression,s,a,"",,,"Selection expression (? for list)"
+macros,s,h,"",,,"User macro definition file"
+output,s,h,"STDOUT",,,"Output file"

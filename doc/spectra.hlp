@@ -1,0 +1,169 @@
+.help spectra Jun92 adccdrom
+.ih
+NAME
+spectra - extract spectra from ADC CD-ROM
+.ih
+USAGE
+spectra catalog spectra image
+.ih
+PARAMETERS
+.ls catalog
+Catalog name from which to extract spectra.  To obtain a list
+of the catalog names enter '?'.
+.le
+.ls spectra
+List of spectra to extract.  A spectrum is identified by an index number
+in the catalog as listed by entering '?'.  The list uses a range list
+syntax (see \fBranges\fR) consisting of numbers or ranges of numbers
+separated by commas.  A range is delimited by hyphen '-'.
+.le
+.ls image
+Output spectrum root name.  The spectrum identification number is appended
+to this image root name for each spectrum extracted.
+.le
+.ih
+DESCRIPTION
+This task provides a convenient user interface to the catalogs of spectra
+contained in Volume 1 of the Astronomical Data Center CD-ROM collection.
+The text version of the catalogs (as opposed to the FITS tables version) is
+used and must be mounted and appear as a normal directory.  The directory
+path is defined by the environment variable "adccddir" which should be set
+when the \fBadccdrom\fR package is installed.  Note that this path may
+include an IRAF node name which then allows access to any machine available
+on the IRAF network.
+
+The catalog to be accessed is specified by a simple catalog name.  One goal
+of this task is that users need not know the CD-ROM directory structure or
+the full file names.  A list of catalogs is paged by specifying '?' for the
+catalog name.  If '?' is given on the command line the task exits after
+paging the list and if the catalog name is queried one may then enter one
+of the catalog names.  The list of catalogs is also included below.  Note
+that this task only accesses those catalogs which contain spectra.  Other
+table catalogs may be accessed with the task \fBcatalog\fR.  In addition to
+the spectral libraries and tables the CD-ROM also contains documentation.
+
+The purpose of this task is to allow extracting a subset of the
+spectra in the designated catalog into one dimensional IRAF spectral images.
+Each catalog or library of spectra consist of a number of similar spectra.  To
+designate a spectrum or spectra to be extracted one specifies a list
+of identification numbers which are just the order index in the catalog.
+To get a directory of the spectra with the identification numbers and
+titles enter '?' for the \fIspectra\fR parameter.  If entered on the
+command line the directory is printed and the task exits.  If entered
+via a query a list of spectra may be specfied after viewing the directory
+list.  The spectrum list is specified using a common range syntax
+(see \fIranges\fR) consisting of numbers or ranges of numbers separated
+by commas.  A range consists of a pair of numbers separated by a hyphen.
+
+The selected spectra are output as one dimensional IRAF spectral images.
+The \fIimage\fR parameter specifies a root image name to which the
+spectrum ID number is appended.  The image header contains sufficient
+information to allow plotting and manipulating the spectra with the
+IRAF spectroscopy tasks.
+
+The flux scale differs among the spectra.  Some are in absolute fluxes,
+some normalized, and some in magnitudes of absolute fluxes.  The units
+are given below but consult the documentation for each catalog for full
+details.
+
+
+.ce
+Available ADC CD-ROM Catalogs of Spectra
+
+.nf
+iuelda   IUE Low-Dispersion Spectra Reference Atlas. I. Normal Stars
+iueostar IUE Atlas of O-Type Stellar Spectra from 1200 to 1900 A
+spatlasb Stellar Spectrophotometric Atlas 3160-5740 A
+spatlasr Stellar Spectrophotometric Atlas 5760-10620 A
+splib    A Library of Stellar Spectra
+spstd    Spectrophotometric Standards
+uvbs     Ultraviolet Bright Star Spectrophotometric Catalogue
+uvbssupp Supplement to the UV Bright Star Spectrophotometric Cat
+.fi
+
+.ce
+Flux Units
+
+.nf
+iuelda	 absolute fluxes (ergs/cm^2 s A)
+iueostar normalized fluxes
+spatlasb normalized spectral energy distributions (per unit frequency)
+spatlasr normalized spectral energy distributions (per unit frequency)
+splib	 absolute fluxes
+spstd	 magnitudes (Hayes-Latham system)
+uvbs	 absolute fluxes (erg/cm^2 s A x 10^10)
+uvbssupp absolute fluxes (erg/cm^2 s A)
+.fi
+.ih
+EXAMPLES
+1. Use the \fBspectra\fR task to examine the available catalogs, select
+a catalog, list the contents of the catalog, and extract spectra.
+
+.nf
+    ad> spectra
+    Spectrum catalog name (? for list): ?
+			    Catalogs of Spectra
+
+    iuelda   IUE Low-Dispersion Spectra Reference Atlas. I. Normal Stars
+    iueostar IUE Atlas of O-Type Stellar Spectra from 1200 to 1900 A
+    spatlasb Stellar Spectrophotometric Atlas 3160-5740 A
+    spatlasr Stellar Spectrophotometric Atlas 5760-10620 A
+    splib    A Library of Stellar Spectra
+    spstd    Spectrophotometric Standards
+    uvbs     Ultraviolet Bright Star Spectrophotometric Catalogue
+    uvbssupp Supplement to the UV Bright Star Spectrophotometric Cat
+
+    Spectrum catalog name (? for list): splib
+    List of spectra to extract (? for list): ?
+    Creating directory of adccddir$spectro/splib/splib.dat ...
+      1: HD 242908 O5    V
+      2: HD 215835 O5.5  V
+      3: HD  12993 O6.5  V
+      4: HD  35619 O7    V
+      5: HD  44811 O7.5  V
+    <etc>
+    157: HD    108 O6    I
+    158: BD+404220 O7    I
+    159: HD  13256 B1    I
+    160: HD  50064 B1    I
+    161: BD+51 710 B5    I
+    List of spectra to extract (? for list) (?): 1
+    Output spectrum root name: splib
+    adccddir$spectro/splib/splib.dat  1: HD 242908 O5 V --> splib.0001
+.fi
+
+2. List directory of IUELDA catalog.
+
+.nf
+    ad> spectra iuelda ?
+    Creating directory of adccddir$spectro/iuelda/iuelda.dat ...
+      1:  HD 698         120
+      2:  HD 2905       4400
+      3:  HD 3360      60000
+    <etc.>
+    227:  HDE 303308     320
+    228:  BD +60 497      16
+    229:  BD +60 2522     48
+.fi
+
+3.  The directory may be saved by redirecting the output to a file.
+
+.nf
+    ad> spectra iuelda ? > iuelda.dir
+    Creating directory of adccddir$spectro/iuelda/iuelda.dat ...
+.fi
+.ih
+BUGS
+Aborting access via IRAF networking can cause subsequent errors (such
+as the task no longer responding).  A \fBflpr\fR will restore the connection.
+Ignore any error message such as:
+
+PANIC in `/ursa/iraf/extern/adccdrom/bin.s': Write to IPC with no reader"
+.ih
+SEE ALSO
+.nf
+catalog, ranges
+
+Various documenation on the ADC CD-ROM collection
+.fi
+.endhelp
